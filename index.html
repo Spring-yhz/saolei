@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="jquery-1.2.3.js"></script>
+	<style>
+		.saolei{
+			width:600px;
+			height:600px;
+			margin:0 auto;
+			border:1px solid  #4f6155;
+		/*	border-left:2px solid #4f6155;
+			border-bottom:2px solid #4f6155;*/
+			/*background:#d9e1ec;*/
+			background-image:url(./images/beijing.png);
+		   background-size:30px 30px;
+			color:red;
+			font-weight: 700;
+			font-size:20px;
+			line-height:28px;
+			text-align:center;
+
+		}
+		
+		.block{
+			width:30px;
+			height:30px;
+			/*border:1px solid black;*/
+			/*margin-right: 1px;
+			margin-bottom: 1px;*/
+/*			border-left:none;
+			border-bottom:none;*/
+			float: left;
+			text-align:center;
+			/*box-shadow:0 5px 5px black;*/
+			
+		}
+		.red{
+			background-image:url(./images/lei.png);
+			background-size: 29px 29px;
+		}
+		.color1{
+			background-image:url(./images/bei.png);
+
+		}
+		/*.color2{
+			background-image:url(./images/bei.png);
+		}
+		.color3{
+			background-image:url(./images/bei.png);
+		}
+		.color4{
+			background-image:url(./images/bei.png);
+		}
+		.color5{
+			background-image:url(./images/bei.png);
+		}
+		.color6{
+			background-image:url(./images/bei.png);
+		}*/
+		.scale{
+			-webkit-animation:fangdasuoxiao .6s ease;
+		}
+		@-webkit-keyframes fangdasuoxiao{
+			0%,100%{
+				transform:scale(1,1);
+			}
+			80%{
+				transform:scale(1.2,1.2)
+			}
+		}
+/*		.word{
+			font-size: 20px;
+			color:#fff;
+			text-align: center;
+		}*/
+
+     .pink{
+     	color: pink;
+     }
+     .yellow{
+     	color: yellow;
+     }
+     .orange{
+     	color: orange;
+     }
+     .blue{
+     	color: blue;
+     }
+     .purple{
+     	color: purple;
+     }
+
+	</style>
+</head>
+<body>
+	<!-- <div class="sence"></div> -->
+	<div class="saolei"></div>
+</body>
+<script>
+	(function(){
+	    var colors=['pink','yellow','orange','blue','purple'];
+		var row=20;
+		var el='';
+		for (var i = 0; i <Math.pow(row+2,2); i++) {
+			el +='<div></div>';
+		}
+		$('.saolei').html(el)
+		.find('div')
+		.addClass('block')
+		$('.saolei div:lt(23)').removeClass();
+		$('.saolei div:gt(461)').removeClass();
+		$('.saolei div:nth-child(22n+1)').removeClass();
+		$('.saolei div:nth-child(22n)').removeClass();
+
+		$('.saolei div').each(function(i){
+			$(this).data('index',i);
+		})
+		$('.saolei .block').each(function(i){
+			if(Math.random()>0.8){
+				$(this).data('islei',true)
+			}
+		}).click(function(){
+			if ($(this).data('islei')) {
+				alert('game over!!!');
+				$('.saolei').find('.block')
+				.removeClass()
+				.addClass('block')
+				.addClass(function(){
+					if ($(this).data('islei')) {
+						return 'red scale';
+					}
+				}).css('animation-delay',function(){
+					return Math.random()*0.8.toFixed(2)+'s';
+				})
+				
+			}else{
+				var shu=0;
+				var pos=$(this).data('index');
+				if($('.saolei div').eq(pos-1).data('islei')){shu++;};
+				if($('.saolei div').eq(pos+1).data('islei')){shu++;};
+				if($('.saolei div').eq(pos+22).data('islei')){shu++;};
+				if($('.saolei div').eq(pos+21).data('islei')){shu++;};
+				if($('.saolei div').eq(pos+23).data('islei')){shu++;};
+				if($('.saolei div').eq(pos-22).data('islei')){shu++;};
+				if($('.saolei div').eq(pos-21).data('islei')){shu++;};
+				if($('.saolei div').eq(pos-23).data('islei')){shu++;};
+				$(this).text(shu).addClass(function(i){
+    	     return 'block '+colors[i%5];
+        });
+			}
+		})
+		
+		// $('.saolei').html(el).find('div').addClass() 
+		// var colors=['color1','color2','color3','color4','color5','color6'];
+		for (var i = 0; i < 400; i++) {
+			$('.saolei .block').addClass('color1')
+			
+	
+		}
+	})()
+</script>
+</html>
